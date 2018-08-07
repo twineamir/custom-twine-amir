@@ -1,0 +1,91 @@
+@import '../../common/colors.less';
+@import '../../common/depth.less';
+@import '../../common/fonts.less';
+@import '../../common/metrics.less';
+
+#passageEditModal {
+	.title span {
+		
+		display: flex;
+		width: 100%;
+
+		input {
+			flex-grow: 1;
+			font-family: fantasy;
+			margin: @len-tiny;
+			font-size: 1rem;
+		}
+	}
+
+	.passageTags {
+		margin: @len-small 0;
+	}
+}
+
+div{
+	font-family: fantasy;
+}
+
+div2{
+	font-family: fantasy;
+}
+
+
+trans{
+	color: rgba(48, 45, 45, 0.582);
+}
+
+var{
+	color: rgba(90, 7, 191, 0.858);
+}
+
+field{
+	color: rgb(245, 170, 31);
+	font-family: 'Times New Roman', Times, serif;
+	
+}
+
+ul.CodeMirror-hints {
+	position: absolute;
+	list-style-type: none;
+	padding: 0;
+	z-index: 1000;
+	background: @color-paper;
+	font: 0.8rem @font-user;
+	border: none;
+	border-radius: 2px;
+	.shadow-large;
+
+	li {
+		padding: @len-tiny @len-small;
+		color: @color-text;
+
+		&.CodeMirror-hint-active {
+			background: fadeout(@color-link, 80%);
+			color: @color-text;
+
+			.theme-dark & {
+				background: fadeout(@color-link, 25%);
+				color: @color-text-dark;
+			}
+		}
+
+		.theme-dark & {
+			color: @color-text-dark;
+		}
+	}
+
+	.theme-dark & {
+		background: @color-paper-dark;
+	}
+}
+.div3 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

@@ -1,0 +1,221 @@
+<modal-dialog id="aboutDialog" :origin="origin" contenteditable="true">
+	<span slot="title">{{ 'Legend' | say }}</span>
+
+	<h4>
+		{{ 'IMPORTANT'| say }}
+	</h4>
+
+	<p>
+		If using Safari switch to Chrome or Firefox <br>
+Always save to file and upload from file to preseve data<br>
+The story must have a start passage <br>
+any passage can be designated as start passage from the passage menu<br>
+To add comments, the line must be preceded by a "#" and must be a new line.
+	</p>
+
+	<h4>
+		{{ 'Synopsis Node'| say }}
+	</h4>
+
+	<p>
+		This is an automatically generted node where you can specify the number  <br>
+and names of the Avatars and write a description of the stage, scene and story. <br>
+The default is 2 Avatars, AvatarA and AvatarB. <br>
+To set the number and names of the Avatars change the list [AvatarA, AvatarB] <br>
+e.g. [Host, Guest, Narrator]
+	</p>
+
+	<h4>
+		{{ 'Avatar Node Usage'| say }}
+	</h4>
+
+	<p>
+		This node includes all the directives for animating the scene. <br>
+You can specify the model or animation by changing the {NAME} including the curly brackets. <br>
+If {NAME} is left unchanged, this is interpreted as NONE. <br>
+<br>
+    SCREEN:<br>
+        (set: $Screen to "Screen_{NAME}")<br>
+    Screen_{NAME} specifies the graphics that appear on the screen.<br>
+	<br>
+    STAGE:<br>
+	    Scene:<br>
+		    $Model: the name of the model of the entire scene <br>
+		    $Anim: the name of the animation to be applied to this model <br>
+		    $Lighting: the name of the scene lighting to be applied to this model<br>
+		    $Sound: the name of the sound to be played<br>
+		    $Effect: the name of the effect to be applied to the sound<br>
+		    $Duration: how long the sound is played in seconds<br>
+			<br>
+    OBJECTS({N}):<br>
+        the default is 2 objects. i.e. OBJECTS(2)<br>
+        this can be changed at any point, for example setting to OBJECTS(4) will generate 4 object blocks <br>
+        in the nodes created subsequently (current node not included, must manually copy and paste).<br>
+		<br>
+        for each object, you can specify:<br>
+            $Model: the name of the object model<br>
+            e.g. (set: $Model to "ObjectModel_Ball") <br>
+		    $Origin: the intial position of the object. <br>
+            e.g. (set: $Origin to (0,0,0))  <br>
+		    $Anim: the name of the animation<br>
+            e.g. (set: $Anim to "ObjectAnim_Rolling")<br>
+            $Origin: the final position of the object. <br>
+            e.g  (set: $Destination to "(5,5,5)")<br>
+            $Duration: the duration of the animation in seconds or number of loops<br>
+            e.g (set: $Duration to 6)<br>
+            $Lighting: the lighting specific to the object<br>
+            $Sound: the sound specifc to the object<br>
+            $Duration: how long the sound is played <br>
+			<br>
+    AVATARS:<br>
+        The number of Avatars and their names are set in the synopsis<br>
+        for each Avatar, you can specifiy:<br>
+            in VOICE:<br>
+                the dialogue to be spoken by the Avatar<br>
+                e.g. replacing "{INSERT DIALOGUE HERE}" with "Hello world!"<br>
+                if {INSERT DIALOGUE HERE} is left unchanged, this is interpreted as <br>
+                the Avatar is not speaking<br>
+            in Sound:<br>
+                $Effect: the effect to be applied to the spoken dialogue<br>
+                e.g. (set: $Effect to "SoundEffect_Echo")<br>
+            in OpenAnim:<br>
+                $Directive: the directions for the open ended animation of the Avatar<br>
+                e.g. (set: $Directive to "BeAngry") will start an open animation <br>
+                of the Avatar. To bring back the Avatar to its initial position <br>
+                specify the transition in the following Avatar node by setting $Directive to<br> 
+                the name of the transition.<br>
+                e.g. (set: $Directive to "Transition01") in the following node.<br>
+			    $Duration: how long the open animation should run<br>
+                e.g. (set: $Duration to 5)<br>
+				<br>
+	AvatarA:<br>
+		Voice:<br>
+			"{INSERT DIALOGUE HERE}"<br>
+			(set: $Name to "VoiceName{NAME}")<br>
+		Sound:<br>
+			(set: $Effect to "SoundEffect{NAME}")<br>
+		OpenAnim:<br>
+			(set: $Directive to "{NAME}")<br>
+			(set: $Duration to {N})<br>
+		Face:<br>
+			(set: $Model to "FaceModel{NAME}")<br>
+			(set: $Anim to "FaceAnim{NAME}")<br>
+			(set: $Axis to "FaceAxis{NAME}")<br>
+			(set: $Duration to {N})<br>
+		Body:<br>
+			(set: $Model to "BodyModel{NAME}")<br>
+			(set: $Origin to ({X, Y, Z}))<br>
+			(set: $Anim to "BodyAnim{NAME}")<br>
+			(set: $Destination to ({X, Y, Z})) <br>
+			(set: $Duration to {N})<br>
+			<br>
+Specify the next node to go to by changing [[{NextNodeTitle}]]<br>
+e.g. [[LogicNode5]]
+	</p>
+
+
+
+	<h4>
+		{{ 'Logic Node Usage'| say }}
+	</h4>
+
+	<p>
+		This node specifies the logic that determines how to travel down the dialogue tree <br>
+and create diffrent story lines.<br>
+Specify the number of possible next node options by setting {N}<br>
+e.g. UserOptions:3<br>
+    $IsRandom: must be set to either true or false, leaving it unchanged <br>
+    is interpreted as false. <br>
+    e.g. (set: $IsRandom to true)<br>
+    if true, the next node to go to is picked at random<br>
+    $IsConditional: must be set to either true or false, leaving it unchanged <br>
+    is interpreted as false. <br>
+    e.g. (set: $IsConditional to true)<br>
+    if true, the next node to go to is determined based on the condition in each <br>
+    UserResponse<br>
+    $IsSpecific: must be left unchanged if not used, otherwise, you must specify<br>
+    the probability of going to each possible next node to a number between 0.0 and 1.0<br>
+    e.g. (set: $IsSpecific to {0.1,0.4,0.5}) <br>
+    means go to UserResponse1 10% of the time, UserResponse2 40% and Userresponse3 50% of the time.<br>
+    $IsOpen: must be set to either true or false, leaving it unchanged <br>
+    is interpreted as false.<br>
+    e.g. (set: $IsOpen to true)<br>
+    if true, the dialogue goes to an open conversation using a third party chat bot<br>
+    and comes back when finished to the dialogue tree, the specifics of when and where <br>
+    to come back must be set in the OpenConv block.<br>
+    $IsOpen will also be set true automatically if none of all the above are false<br>
+    i.e. if $IsRandom, $IsSpecific, $IsConditional are all false, $IsOpen is set to true<br>
+    and acts as a default<br>
+	<br>
+for each UserResponse, you can specify the following:<br>
+    $MicSpeech: the set of predicted responses to check for when the user speaks<br>
+    e.g.($MicSpeech is  "Yes")<br>
+    to include multiple iterations, seperate by "//"<br>
+    e.g.($MicSpeech is  "Yes//Of course//Yeah")<br>
+    $CamF: possible data from the front camera<br>
+    $AnalysisBasic_{NAME}: is either true of false<br>
+    {NAME} must be changed to specify the basic analysis used. <br>
+    e.g. ($AnalysisBasic_Adventurousness is  true)<br>
+    $AnalysisCustom_{NAME}: is either true of false<br>
+    {NAME} must be changed to specify the custom analysis used. <br>
+	e.g. ($AnalysisCustom_Intelligence  false)<br>
+    You can add any number of AnalysisBasic or AnalysisCustom lines to the <br>
+    Userresponse block<br>
+	<br>
+in OpenConv, you can specify the duration of the open conversation, its <br>
+starting node and ending node.<br>
+e.g.    (set: $Duration to 5)<br>
+        start: [[TransitionForward01]]<br>
+        end:   [[TransitionBack02]]<br>
+$Duration: can also be set to a string value as in the following cases:<br>
+        (set: $Duration to "Random") #picks at random from [1,10]<br>
+        (set: $Duration to "High")   #picks at random from [7,10]<br>
+        (set: $Duration to "Low")    #picks at random from [1,3]<br>
+		<br>
+the last lines of the logic node specify the next nodes to go to<br>
+corresponding to each user response. {NextNodeTitle} is all that has to be changed <br>
+here<br>
+e.g. (if: $UserResponse1 is true)[ [[UserNode1]] ] 
+	</p>
+
+
+
+	<h4>
+		{{ 'Universal Node Usage'| say }}
+	</h4>
+
+	<p>
+		This node specifies logic that is executed at any instance if true.<br>
+The conditions can be added to or removed at any point by adding similar lines.<br>
+if a line contains a {VALUE} field, then it may be specified.<br>
+e.g.<br>
+(if: $MicSpeech is {VALUE})<br>
+[ [[{NextNodeTitle}]] ]<br>
+can be changed to  <br>
+(if: $MicSpeech is "Yelling")<br>
+[ [[{NextNodeTitle}]] ]<br>
+leaving "{VALUE}" unchanged means the codition is dismissed <br>
+<br>
+if a condition has no {VALUE} field, then it should not be modified<br>
+e.g. <br>
+(if: $ScreenZoom is true)<br>
+[ [[{NextNodeTitle}]] ]<br>
+means in the case of the user zooming, the dialogue goes to the specified node <br>
+immediately<br>
+	</p>
+
+
+	<h4>
+		{{ 'Logic Node Usage'| say }}
+	</h4>
+
+	<p>
+		User node data is not read except for the next node directive. <br>
+You can copy the UserResponse conrresoinding to the user node from its <br>
+preceding logic node for the clarity of the dialogue tree.<br>
+	</p>
+
+
+
+
+</modal-dialog>

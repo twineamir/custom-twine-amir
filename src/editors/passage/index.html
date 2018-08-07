@@ -1,0 +1,19 @@
+<modal-dialog id="passageEditModal" class="editor" :can-close="canClose" :can-widen="true" :origin="origin" @destroyed="dialogDestroyed" v-ref:modal>
+	<span slot="title">
+		<input type="text" id="passageName" placeholder="{{ 'Passage Name' | say }}" v-model="userPassageName" contenteditable="true">
+	</span>
+
+	<tag-editor :passage="passage" :story-id="storyId"></tag-editor>
+
+	<p class="error" v-if="!userPassageNameValid">
+		{{ 'A passage already exists with this name.' | say }}
+	</p>
+
+	<div id="ptext" contenteditable="true">
+		
+	</div> 
+	<div3 class="right">
+	<button type="button"  @click="breed()">Duplicate and Go!</button>
+	</div3>
+</modal-dialog>
+

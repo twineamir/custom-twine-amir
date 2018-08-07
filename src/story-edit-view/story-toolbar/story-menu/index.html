@@ -1,0 +1,48 @@
+<drop-down position="top left">
+	<ul class="menu">
+
+		<li>
+			<button @click="renameStory">{{ 'Rename Story' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="selectAll">{{ 'Select All Nodes' | say }}</button>
+		</li>
+
+		<li class="divider"></li>
+
+		<li>
+			<button @click="extractAnimations">{{ 'Get Animations' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="extractSentences">{{ 'Get MicSpeech' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="extractSounds">{{ 'Get Sounds' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="extractLights">{{ 'Get Lights' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="extractModels">{{ 'Get Models' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="unityStory">{{ 'Get Unity Script' | say }}</button>
+		</li>
+
+		<li>
+			<button @click="proofRead">{{ 'Get All' | say }}</button>
+		</li>
+
+		
+		
+		<li>
+			<button @click="publishStory">{{ 'Save to File' | say }}</button>
+		</li>
+	</ul>
+</drop-down>
